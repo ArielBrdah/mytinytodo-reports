@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import java.util.*;
 
 public class App {
 
@@ -114,16 +115,66 @@ public class App {
         WebElement search_btn = App.el(".field.adv-keywords__btn-help .btn.btn--primary");
         search_btn.click();
 
+
+        //get list of all results (there are 50 results)
+		List<WebElement> list = driver.findElements(By.cssSelector("#srp-river-results li .s-item__title"));
+		//print the length of the list 
+		System.out.println("length = " + list.size());
+		//print the list of all items
+		for (WebElement el : list) {
+			System.out.println(el.getText());
+		}
+		//using regular for, to iterate over the list and print all elements
+		for (int i = 0; i < list.size(); i++) {
+			System.out.println(list.get(i).getText());
+		}
+		//click on one of the elements
+		list.get(2).click();
+
         App.log("Go back...");
         driver.navigate().back();
 
     }
 
+
+    public void alitalia_get_anchors_find_flight(){
+
+        System.setProperty("webdriver.chrome.driver",
+                "C:/Users/ASUS/workspace/automation-project-2024/test-app/chromedriver-win64/chromedriver.exe");
+        WebDriver driver = new ChromeDriver();
+        App.driver = driver;
+        driver.manage().window().maximize();
+        driver.get("https://alitalia.com/en_il");
+
+        App.log("Connected to Aliatalia...");
+        App.log("Accepting cookies:");
+        App.el(".iubenda-cs-accept-btn.iubenda-cs-btn-primary").click();
+        
+        App.log("Loop through all anchors:");
+        //get list of all results (there are 50 results)
+		List<WebElement> list = driver.findElements(By.cssSelector("a"));
+		WebElement flight = null;
+        //print the list of all items
+		for (WebElement el : list) {
+			System.out.println(el.getText());
+            if(el.getText().contains("flight") || el.getText().contains("Flight")  ){
+                flight = el;
+            }
+
+		}
+		//click on one of the elements
+		App.log("Printing 'flight' link url.");
+        System.out.println(flight.getAttribute("href"));
+
+        App.log("Finish...");
+
+    }
     public static void main(String[] args){
         try {
             App app = new App();
             // app.forgot_password_salesforce();
-            app.advanced_search_ebay();
+            // app.advanced_search_ebay();
+            app.alitalia_get_anchors_find_flight();
         } catch (Exception e) {
             e.printStackTrace();
         }
