@@ -1,101 +1,99 @@
-# Selenium Automation Project 🚀🤖
+# MyTinyTodo Test Report
 
-![Selenium Automation Banner](https://via.placeholder.com/1200x300?text=Selenium+Automation+Project)
+This repository contains a test report for the open-source application **MyTinyTodo**, which is a simple tool for creating and managing todo lists. Below is a summary of the application and the tests performed.
 
-This project demonstrates automation testing practices using Selenium WebDriver. It includes various test cases for web forms, error validation, and site functionalities across multiple websites like Salesforce and eBay.
+## About MyTinyTodo
 
-## Features 🌟
+**MyTinyTodo** is an open-source and free application for managing todo lists with tasks and priorities.
 
-- **Automated Form Filling**: Simulates user input for form submissions.
-- **Error Message Validation**: Checks for proper error messages when mandatory fields are left empty.
-- **Advanced Search Automation**: Automates advanced search functionality on eBay.
-- **Password Recovery Simulation**: Tests the forgot password functionality on Salesforce.
-- **Reusable Functions**: Implements reusable methods for logging and element retrieval.
+### Key Features:
+- Multiple todo lists.
+- Task notes and tags.
+- Priority levels (-1, 0, +1, +2).
+- Due dates.
+- Drag-and-drop sorting.
+- Search functionality.
+- Password protection.
+- Smart syntax for creating tasks (e.g., `±priority Task #Tag1 #Tag2 @duedate`).
+- Print-friendly CSS and dark mode.
+- Mobile device support.
 
-## Prerequisites 🛠️
+### Technical Details:
+- **Backend**: Written in PHP.
+- **Frontend**: Uses jQuery.
+- **Database Support**: PostgreSQL, MySQL, or SQLite.
+- **License**: GNU GPL.
 
-- **Java**: Ensure Java is installed and configured.
-- **Selenium WebDriver**: Compatible with the Chrome browser.
-- **ChromeDriver**: Download and specify the path to ChromeDriver executable.
-- **Maven**: Recommended for managing dependencies.
+### Latest Updates:
+- **v1.8.1** (2024-01-28): Latest stable version.
+- **v1.7.6** (2023-09-14).
+- **v1.6.10** (2022-05-03).
 
-## Setup Instructions 🖥️
+### [Demo Available Here](#)
 
-1. Clone this repository:
-   ```bash
-   git clone <repository_url>
-   ```
+## Purpose of This Repository
+This repository documents the tests I conducted on the MyTinyTodo application, focusing on its functionality and features.
 
-2. Navigate to the project directory:
-   ```bash
-   cd automation-project-2024
-   ```
+## Tests Conducted
 
-3. Download [ChromeDriver](https://chromedriver.chromium.org/downloads) and place it in the appropriate directory.
+### Environment:
+- **Browser**: Chrome 131.0.6778.109.
+- **Server**: Localhost.
+- **Database**: MySQL.
 
-4. Update the `chromedriver` path in the code:
-   ```java
-   System.setProperty("webdriver.chrome.driver", "<path_to_chromedriver>");
-   ```
+### Test Scenarios:
 
-5. Compile and run the code using your preferred IDE or command line.
+#### 1. Adding Todo Lists:
+- Verified the ability to create new todo lists.
+- Tested naming lists with various lengths and special characters.
 
-## Usage 🧪
+#### 2. Adding Tasks:
+- Successfully added tasks with the following attributes:
+  - Task name.
+  - Tags (e.g., `#urgent`, `#personal`).
+  - Priority levels (-1 to +2).
+  - Due dates (e.g., `@2024-12-10`).
+- Used the smart syntax to simplify task creation.
 
-### Run Specific Test Cases
+#### 3. Editing Tasks:
+- Tested the ability to edit task names, priorities, due dates, and tags.
 
-#### Form Filling Test 📝
-Simulates filling out a multi-step form.
-```java
-app.fill_form_test();
-```
+#### 4. Deleting Tasks:
+- Verified the ability to delete tasks from a list.
+- Confirmed tasks are removed from the database.
 
-#### Error Validation Test ⚠️
-Checks if error messages appear when fields are left empty.
-```java
-app.error_fields_test();
-```
+#### 5. Deleting Todo Lists:
+- Successfully deleted entire todo lists.
+- Confirmed associated tasks were also removed.
 
-#### Salesforce Password Recovery Test 🔑
-Tests the forgot password functionality.
-```java
-app.forgot_password_salesforce();
-```
+#### 6. Search Functionality:
+- Tested searching for tasks using keywords and tags.
+- Confirmed results were accurate.
 
-#### eBay Advanced Search Test 🛒
-Automates advanced search parameters on eBay.
-```java
-app.advanced_search_ebay();
-```
+#### 7. Drag-and-Drop Sorting:
+- Verified that tasks could be reordered via drag-and-drop.
 
-### Logging and Reusability 📜
-- **Logging**: Each test step is logged to the console for clarity and debugging.
-- **Element Finder**: The `el()` method provides a convenient way to locate elements by CSS selectors.
+#### 8. Dark Mode:
+- Tested dark mode on desktop and mobile browsers.
 
-### Example
-```java
-App.log("Fill searching article fields...");
-WebElement search_word = App.el("#_nkw");
-search_word.sendKeys("tent");
-```
+## Observations
+- The application performed well overall.
+- **Strengths:**
+  - Easy to use with intuitive UI.
+  - Smart syntax simplifies task creation.
+  - Lightweight and fast.
+- **Areas for Improvement:**
+  - Better error handling for invalid inputs.
+  - Enhanced mobile responsiveness for certain features.
 
-## Best Practices 💡
+## How to Install MyTinyTodo
+1. Download the latest version from the [official website](#).
+2. Set up a web server (e.g., Apache or NGINX).
+3. Configure the database connection (PostgreSQL, MySQL, or SQLite).
+4. Deploy the application files to the server.
+5. Access the application in your browser.
 
-- **Code Reusability**: Use helper methods like `el()` and `log()` to reduce redundancy.
-- **Thread Management**: Add proper thread sleeps to handle dynamic content loading, or use explicit waits for better reliability.
-- **Browser Management**: Always close the browser instance after execution to free resources.
+## Conclusion
+MyTinyTodo is a robust application for managing todo lists. My tests confirm that it delivers on its promises for simplicity and functionality. Further improvements could make it even better for end users.
 
-## Future Improvements 🚀
-
-- Implement explicit waits for better test reliability.
-- Add configuration management for environment variables.
-- Include reporting tools like Allure Reports.
-- Extend automation to include mobile testing.
-
-## License 📄
-
-This project is licensed under the [MIT License](LICENSE).
-
----
-
-Happy testing! 🎉
+Feel free to fork this repository and contribute! If you encounter issues, please open an issue or pull request.
