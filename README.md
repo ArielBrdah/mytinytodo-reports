@@ -1,3 +1,4 @@
+![Image](./logo.png)
 # MyTinyTodo Test Report
 
 This repository contains a test report for the open-source application **MyTinyTodo**, which is a simple tool for creating and managing todo lists. Below is a summary of the application and the tests performed.
@@ -29,7 +30,7 @@ This repository contains a test report for the open-source application **MyTinyT
 - **v1.7.6** (2023-09-14).
 - **v1.6.10** (2022-05-03).
 
-### [Demo Available Here](#)
+### [Demo Available Here](https://www.mytinytodo.net/demo)
 
 ## Purpose of This Repository
 This repository documents the tests I conducted on the MyTinyTodo application, focusing on its functionality and features.
