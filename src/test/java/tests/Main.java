@@ -12,19 +12,17 @@ public class Main {
 	
 	public static void main(String args[]) {
 		
-        System.setProperty("webdriver.chrome.driver","C:/Users/ASUS/workspace/automation-project-2024/test-app/chromedriver-win64/chromedriver.exe");
-        WebDriver driver = new ChromeDriver();
-        App.driver = driver;
-        driver.manage().window().maximize();
-//        driver.get("https://www.mytinytodo.net/demo");
-
-        driver.get("http://localhost/");
-        
-        TasksPage tp = new TasksPage(driver);
-        for(int i=0; i <3; i++)
-        	tp.addList("Tomorrow");
-        tp.chooseList("[title=Today]");
-        tp.removeList("Tomorrow");
+//        System.setProperty("webdriver.chrome.driver","C:/Users/ASUS/workspace/automation-project-2024/test-app/chromedriver-win64/chromedriver.exe");
+//        WebDriver driver = new ChromeDriver();
+//        App.driver = driver;
+//        driver.manage().window().maximize();
+//        driver.get("http://localhost/");
+//        
+//        TasksPage tp = new TasksPage(driver);
+//        for(int i=0; i <3; i++)
+//        	tp.addList("Tomorrow");
+//        tp.chooseList("[title=Today]");
+//        tp.removeList("Tomorrow");
 //        for (int i = 0; i < 10; i++) {			
 //        	tp.addSimpleTask("Task number "+i);
 //		}

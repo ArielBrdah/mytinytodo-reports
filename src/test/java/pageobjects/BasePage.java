@@ -2,13 +2,18 @@ package pageobjects;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.PageFactory;
 
 public class BasePage {
 	
 	WebDriver driver = null;
-		
+	Actions actions;	
+	
 	public BasePage(WebDriver driver) {
 		this.driver = driver;
+		actions = new Actions(driver);
+		PageFactory.initElements(driver, this);
 	}
 		
 	public void fillText(WebElement el, String text) {
@@ -20,6 +25,13 @@ public class BasePage {
 		el.click();
 	}
 	
+	public void moveTo(WebElement el) {
+		actions.moveToElement(el).build().perform();
+	}
+	
+	public String getText(WebElement el) {
+		return el.getText();
+	}
 
 	public void sleep(long mills) {
 		try {
