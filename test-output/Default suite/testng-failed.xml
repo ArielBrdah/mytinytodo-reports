@@ -5,9 +5,9 @@
     <classes>
       <class name="tests.TasksTest">
         <methods>
-          <include name="tc01_addTask"/>
           <include name="beforeClass"/>
           <include name="afterClass"/>
+          <include name="tc03_addAndUpdateTask"/>
         </methods>
       </class> <!-- tests.TasksTest -->
     </classes>

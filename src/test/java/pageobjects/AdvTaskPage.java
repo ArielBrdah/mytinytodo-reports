@@ -35,7 +35,7 @@ public class AdvTaskPage extends BasePage {
 		click(driver.findElement(By.cssSelector("#newtask_adv")));
 	}
 	
-	public void createTask(String priorityValue, String duedateValue, String titleValue, String noteValue, String tagsValue) { 
+	public void fillForm(String priorityValue, String duedateValue, String titleValue, String noteValue, String tagsValue) {
 		Select prio = new Select(priorityItem);
 		prio.selectByValue(priorityValue);
 		
@@ -43,6 +43,9 @@ public class AdvTaskPage extends BasePage {
 		fillText(titleField,titleValue);
 		fillText(noteField,noteValue);
 		fillText(tagsField,tagsValue);
+		
+	}
+	public void submit() {
 		click(submitBtn);
 	}
 }

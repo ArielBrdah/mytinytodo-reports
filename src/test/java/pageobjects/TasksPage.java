@@ -10,6 +10,9 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import helpers.Convert;
+import models.TaskModel;
+
 public class TasksPage extends BasePage {
 
 	@FindBy(css = ".mtt-tabs-new-button")
@@ -37,11 +40,14 @@ public class TasksPage extends BasePage {
 	List<WebElement> taskRows;
 	
 
-	@FindBy(css="#taskcontextcontainer .cmenu_delete")
+	@FindBy(css="#taskcontextcontainer #cmenu_delete")
 	WebElement removeItem;
 	
+	@FindBy(css="#taskcontextcontainer #cmenu_edit")
+	WebElement updateItem;
 	
-	@FindBy(css =".taskactionbtn.mtt-menu-button-active")
+	
+	@FindBy(css =".taskactionbtn")
 	WebElement threedot;
 	public TasksPage(WebDriver driver) {
 		super(driver);
@@ -80,7 +86,9 @@ public class TasksPage extends BasePage {
 	}
 
 	public void chooseList(String name) {
-		click(driver.findElement(By.cssSelector(name)));
+		sleep(500);
+		click(driver.findElement(By.cssSelector("[title="+name+"]")));
+		sleep(500);
 	}
 
 	public boolean isElementPresent(By locator) {
@@ -101,17 +109,77 @@ public class TasksPage extends BasePage {
 		click(submitNewTaskIcon);
 	}
 	
-	public void removeTaskByName(String taskValue) {
-		
-		for(WebElement taskRow : taskRows) {
-			if(getText(taskRow.findElement(By.cssSelector(".task-title"))).equalsIgnoreCase(taskValue)) {
+	public String getTaskIdFromTask(WebElement task) {
+		return task.getAttribute("data-id");
+	}
+	
+	public Boolean existTaskId(String taskId) { 
+		for(WebElement taskRow : this.taskRows) {
+			if(this.getTaskIdFromTask(taskRow).equalsIgnoreCase(taskId)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public String removeTaskByName(String taskValue) {
+		String taskId = "";
+		for(WebElement taskRow : this.taskRows) {
+			if(getText(taskRow.findElement(By.cssSelector(".task-middle .task-through .task-title"))).equalsIgnoreCase(taskValue)) {
 				moveTo(taskRow);
-				click(threedot);
+				click(taskRow.findElement(By.cssSelector(".taskactionbtn")));
 				click(removeItem);
+				click(okBtn);
+				taskId = this.getTaskIdFromTask(taskRow);
+				System.out.println(taskId);
 				break;
 			}
 		}
 		// return the id of deleted item.
+		return taskId;
+	}
+	
+	public TaskModel getTaskModelFromId(String id) {
+		String taskId = "";
+		for(WebElement taskRow : this.taskRows) {
+			if(taskRow.getAttribute("data-id").equalsIgnoreCase(id)) {
+				String prio = getText(taskRow.findElement(By.cssSelector(".task-prio")));
+				if(prio.contains("+")) prio = prio.substring(1);
+				String title = getText(taskRow.findElement(By.cssSelector(".task-middle .task-through .task-title")));
+				String due = taskRow.findElement(By.cssSelector(".task-through-right .duedate")).getAttribute("title").substring(4);
+				String []dueArr = due.split(" ");
+				due = Convert.mon(dueArr[1])+"/"+dueArr[0]+"/"+dueArr[dueArr.length-1];
+				
+				click(taskRow.findElement(By.cssSelector(".task-toggle")));
+				String note = taskRow.findElement(By.cssSelector(".task-note-block .task-note")).getText();
+				String tags = getText(taskRow.findElement(By.cssSelector(".task-tags")));
+				
+				return new TaskModel(prio,due,title,note,tags,id);
+			}
+		}
+		return null;
+	}
+	
+	
+	
+	public String updateTask(String taskTitle, TaskModel t) {
+		String taskId = "";
+		for(WebElement taskRow : this.taskRows) {
+			if(getText(taskRow).equalsIgnoreCase(taskTitle)) {
+				moveTo(taskRow);
+//				sleep(2000);
+				click(taskRow.findElement(By.cssSelector(".taskactionbtn")));
+				click(this.updateItem);
+				String id = getTaskIdFromTask(taskRow);
+				t.setId(id);
+				AdvTaskPage atp = new AdvTaskPage(driver);
+				atp.fillForm(t.getPriority(), t.getDue(), t.getTitle(), t.getNote(), t.getTags());
+				atp.submit();
+				return t.getId();
+			}
+		}
+		// return the id of deleted item.
+		return taskId;
 	}
 	
 	public void search(String itemToSearch) { 
@@ -120,7 +188,7 @@ public class TasksPage extends BasePage {
 	
 	public String getTaskByName(String name) {
 		this.search(name);
-		WebElement taskRow = taskRows.get(1);
+		WebElement taskRow = taskRows.get(0);
 		if(taskRow != null) return taskRow.findElement(By.cssSelector(".task-title")).getText();
 		else return "";
 	}

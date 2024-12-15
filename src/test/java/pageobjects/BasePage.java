@@ -12,7 +12,7 @@ public class BasePage {
 	
 	public BasePage(WebDriver driver) {
 		this.driver = driver;
-		actions = new Actions(driver);
+		this.actions = new Actions(driver);
 		PageFactory.initElements(driver, this);
 	}
 		
@@ -26,7 +26,7 @@ public class BasePage {
 	}
 	
 	public void moveTo(WebElement el) {
-		actions.moveToElement(el).build().perform();
+		this.actions.moveToElement(el).build().perform();
 	}
 	
 	public String getText(WebElement el) {
