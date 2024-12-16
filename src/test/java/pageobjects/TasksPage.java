@@ -167,7 +167,6 @@ public class TasksPage extends BasePage {
 		for(WebElement taskRow : this.taskRows) {
 			if(getText(taskRow).equalsIgnoreCase(taskTitle)) {
 				moveTo(taskRow);
-//				sleep(2000);
 				click(taskRow.findElement(By.cssSelector(".taskactionbtn")));
 				click(this.updateItem);
 				String id = getTaskIdFromTask(taskRow);
@@ -188,6 +187,7 @@ public class TasksPage extends BasePage {
 	
 	public String getTaskByName(String name) {
 		this.search(name);
+		sleep(1000);
 		WebElement taskRow = taskRows.get(0);
 		if(taskRow != null) return taskRow.findElement(By.cssSelector(".task-title")).getText();
 		else return "";

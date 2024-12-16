@@ -9,7 +9,7 @@ import pageobjects.TasksPage;
 public class TasksTest extends BaseTest {
 
 	@Test
-	public void tc01_addTask() {
+	public void tc01_addSimpleTask() {
 
 		/**
 		 * @function: add task to list.
@@ -18,19 +18,19 @@ public class TasksTest extends BaseTest {
 		TasksPage tsp = new TasksPage(driver);
 		String taskNameData = "Cleaning the house.";
 		String listNameData = "Todo";
-		tsp.chooseList("[title=" + listNameData + "]");
+		tsp.chooseList(listNameData);
 		tsp.addTask(taskNameData);
 
 		/**
 		 * @description: verify the added task is present in the choosen list.
 		 */
-		tsp.chooseList("[title=" + listNameData + "]");
+		tsp.chooseList(listNameData);
 		String taskName = tsp.getTaskByName(taskNameData);
 		Assert.assertEquals(taskName, taskNameData);
 	}
 
 	@Test
-	public void tc02_deleteExistingTask() {
+	public void tc02_DeleteTask() {
 
 		// Data Set
 		String listNameData = "Todo";
@@ -60,7 +60,7 @@ public class TasksTest extends BaseTest {
 	}
 
 	@Test
-	public void tc03_addAndUpdateTask() {
+	public void tc03_updateTask() {
 		
 		// Data Set
 		String listNameData = "Todo";
@@ -95,7 +95,15 @@ public class TasksTest extends BaseTest {
 		}
 		Assert.assertTrue(taskUpdated);
 		
+	}
+	
+	
+	public void tc04_addAdvTask() {
+		
 		
 	}
+	
+	
+	
 
 }
